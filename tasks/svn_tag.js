@@ -111,13 +111,9 @@ module.exports = function(grunt) {
 
     var projectVersion = packageJson.version
       , fromURL = projectRoot + fromPath
-      , tagName = processTemplate(options.tag, {
-            version: projectVersion
-        })
+      , tagName = processTemplate(options.tag)
       , toURL = projectRoot + '/tags/' + tagName
-      , commitMessage = processTemplate(options.commitMessage, {
-          version: projectVersion
-        })
+      , commitMessage = processTemplate(options.commitMessage)
       , command = 'svn cp "' + fromURL + '" "' + toURL + '" -m "' + commitMessage + '"';
 
     if(options.username && options.password) {
