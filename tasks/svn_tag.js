@@ -113,7 +113,7 @@ module.exports = function(grunt) {
       , fromURL = projectRoot + fromPath
       , tagName = processTemplate(options.tag)
       , toURL = projectRoot + '/tags/' + tagName
-      , commitMessage = processTemplate(options.commitMessage)
+      , commitMessage = processTemplate(options.commitMessage).replace(/`/g, "\\`");
       , command = 'svn cp "' + fromURL + '" "' + toURL + '" -m "' + commitMessage + '"';
 
     if(options.username && options.password) {
