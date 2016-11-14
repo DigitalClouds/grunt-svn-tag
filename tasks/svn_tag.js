@@ -16,7 +16,8 @@ module.exports = function(grunt) {
   var sh = require('shelljs')
     , findup = require('findup-sync')
     , svnProjectRoot = require('svn-project-root')
-    , svnInfo = require('svn-info');
+    , svnInfo = require('svn-info'),
+    , node_path = require('path');
 
   grunt.template.addDelimiters('svn_tag', '{%', '%}');
 
@@ -45,6 +46,7 @@ module.exports = function(grunt) {
       'tag': 'v{%= version %}',
       'dryRun': false,
       'projectRoot': null,
+      'tagWorkingCopy': false,
       'username': null,
       'password': null,
       'overwrite': false,
@@ -110,7 +112,7 @@ module.exports = function(grunt) {
     }
 
     var projectVersion = packageJson.version
-      , fromURL = projectRoot + fromPath
+      , fromURL = options.tagWorkingCopy ? node_path.resolve() : projectRoot + fromPath
       , tagName = processTemplate(options.tag)
       , toURL = projectRoot + '/tags/' + tagName
       , commitMessage = processTemplate(options.commitMessage).replace(/`/g, "\\`");
