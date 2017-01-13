@@ -16,7 +16,7 @@ module.exports = function(grunt) {
   var sh = require('shelljs')
     , findup = require('findup-sync')
     , svnProjectRoot = require('svn-project-root')
-    , svnInfo = require('svn-info'),
+    , svnInfo = require('svn-info')
     , node_path = require('path');
 
   grunt.template.addDelimiters('svn_tag', '{%', '%}');
@@ -115,7 +115,7 @@ module.exports = function(grunt) {
       , fromURL = options.tagWorkingCopy ? node_path.resolve() : projectRoot + fromPath
       , tagName = processTemplate(options.tag)
       , toURL = projectRoot + '/tags/' + tagName
-      , commitMessage = processTemplate(options.commitMessage).replace(/`/g, "\\`");
+      , commitMessage = processTemplate(options.commitMessage).replace(/`/g, "\\`")
       , command = 'svn cp "' + fromURL + '" "' + toURL + '" -m "' + commitMessage + '"';
 
     if(options.username && options.password) {
